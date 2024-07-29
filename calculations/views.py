@@ -70,7 +70,7 @@ def calculate_view(request):
             }
 
             # グラフの作成
-            categories = ['計測コスト[円]', '調整コスト[円]', '調整限界内損失[円]', '調整限界外損失[円]', '計測誤差', '総損失コスト[円]']
+            categories = ['計測コスト', '調整コスト', '調整限界内損失', '調整限界外損失', '計測誤差', '総損失コスト']
             current_values = [current_measurement_cost, current_adjustment_cost, current_loss_within_limit, current_loss_beyond_limit, current_measurement_error, current_total_cost]
             optimal_values = [optimal_measurement_cost, optimal_adjustment_cost, optimal_loss_within_limit, optimal_loss_beyond_limit, optimal_measurement_error, optimal_total_cost]
 
