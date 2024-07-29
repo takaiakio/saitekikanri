@@ -1,0 +1,34 @@
+/* static/css/styles.css */
+
+body {
+    background-color: #000; /* 背景を黒にする */
+    color: #fff; /* デフォルトの文字色を白にする */
+}
+
+form {
+    background-color: #000; /* フォームの背景を黒にする */
+    color: #fff; /* フォーム内の文字を白にする */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+input, textarea, select {
+    background-color: #333; /* 入力フィールドの背景をダークグレーにする */
+    color: #fff; /* 入力フィールドの文字を白にする */
+    border: 1px solid #555; /* 入力フィールドの境界線をダークグレーにする */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #444; /* 送信ボタンの背景をダークグレーにする */
+    color: #fff; /* 送信ボタンの文字を白にする */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #555; /* ホバー時の送信ボタンの背景を少し明るくする */
+}
