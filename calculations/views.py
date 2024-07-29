@@ -70,7 +70,7 @@ def calculate_view(request):
             }
 
             # グラフの作成
-            categories = ['計測コスト', '調整コスト', '調整限界内損失', '調整限界外損失', '計測誤差', '総コスト']
+            categories = ['計測コスト', '調整コスト', '調整限界内損失', '調整限界外損失', '計測誤差', '総損失コスト']
             current_values = [current_measurement_cost, current_adjustment_cost, current_loss_within_limit, current_loss_beyond_limit, current_measurement_error, current_total_cost]
             optimal_values = [optimal_measurement_cost, optimal_adjustment_cost, optimal_loss_within_limit, optimal_loss_beyond_limit, optimal_measurement_error, optimal_total_cost]
 
@@ -78,7 +78,7 @@ def calculate_view(request):
                 go.Bar(name='現行', x=categories, y=current_values),
                 go.Bar(name='最適', x=categories, y=optimal_values)
             ])
-            fig.update_layout(barmode='group', title='現行 vs 最適 コスト比較', xaxis_title='コスト要素', yaxis_title='コスト')
+            fig.update_layout(barmode='group', title='現行 vs 最適 損失コスト比較', xaxis_title='コスト要素', yaxis_title='コスト')
 
             graph = opy.plot(fig, auto_open=False, output_type='div')
 
