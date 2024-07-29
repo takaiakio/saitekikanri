@@ -78,7 +78,7 @@ def calculate_view(request):
                 go.Bar(name='現行', x=categories, y=current_values),
                 go.Bar(name='最適', x=categories, y=optimal_values)
             ])
-            fig.update_layout(barmode='group', title='現行 vs 最適 損失コスト比較', xaxis_title='コスト要素', yaxis_title='コスト')
+            fig.update_layout(barmode='group', title='現行 vs 最適 損失コスト比較', xaxis_title='要素', yaxis_title='損失コスト(円)')
 
             graph = opy.plot(fig, auto_open=False, output_type='div')
 
