@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: saitekikanri
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn myproject.wsgi"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: myproject.settings
+      - key: SECRET_KEY
+        value: django-insecure-*ntxz!=yyyp!_^o0yrj2^!ltwe9-$$#ug8i=0-3o%$(5-$7b47
