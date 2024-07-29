@@ -62,7 +62,7 @@
             <td>{{ result.optimal_measurement_error }}</td>
         </tr>
         <tr>
-            <td>総コスト</td>
+            <td>総損失コスト</td>
             <td>{{ result.current_total_cost }}</td>
             <td>{{ result.optimal_total_cost }}</td>
         </tr>
@@ -70,7 +70,7 @@
     {% endif %}
 
     {% if graph %}
-    <h2>コスト比較グラフ</h2>
+    <h2>損失コスト比較グラフ</h2>
     <div>{{ graph|safe }}</div>
     {% endif %}
 </body>
