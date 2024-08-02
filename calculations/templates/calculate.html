@@ -7,6 +7,9 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
+{% extends 'base.html' %}
+
+{% block content %}
 <body>
     <h1>最適管理算出アプリ</h1>
     <form method="post">
@@ -75,6 +78,7 @@
     <h2>損失コスト比較グラフ</h2>
     <div>{{ graph|safe }}</div>
     {% endif %}
+{% endblock %}
 </body>
 </html>
 

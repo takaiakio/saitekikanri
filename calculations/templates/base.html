@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>アプリケーション</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'calculate' %}">計算ページ</a></li>
+            <li><a href="{% url 'diagnostic' %}">診断ページ</a></li>
+        </ul>
+    </nav>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

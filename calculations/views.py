@@ -86,8 +86,8 @@ def calculate_view(request):
     else:
         form = CalculationForm()
     
-    return render(request, 'calculate.html', {'form': form, 'result': result, 'graph': graph})
-
+    #return render(request, 'calculate.html', {'form': form, 'result': result, 'graph': graph})
+    return render(request, 'calculate.html', {'form': form})
 
 
 def diagnostic_view(request):
@@ -148,4 +148,5 @@ def diagnostic_view(request):
     else:
         form = DiagnosticForm()
 
-    return render(request, 'calculations/diagnostic.html', {'form': form, 'result': result})
+    #return render(request, 'calculations/diagnostic.html', {'form': form, 'result': result})
+    return render(request, 'diagnostic.html', {'form': form})
