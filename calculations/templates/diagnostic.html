@@ -1,3 +1,4 @@
+{% extends 'base.html' %}   
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,7 +7,6 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
-{% extends 'base.html' %}   
 
 {% block content %}
     <h1>診断コスト算出結果</h1>
@@ -32,7 +32,6 @@
 
         Plotly.newPlot('chart', data);
     </script>
-    {% endif %}
 {% endblock %}
 </body>
 </html>
