@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import CalculationForm
+from .forms import DiagnosticForm
 import math
 import plotly.graph_objs as go
 import plotly.offline as opy
@@ -86,3 +87,65 @@ def calculate_view(request):
         form = CalculationForm()
     
     return render(request, 'calculate.html', {'form': form, 'result': result, 'graph': graph})
+
+
+
+def diagnostic_view(request):
+    result = None
+    if request.method == 'POST':
+        form = DiagnosticForm(request.POST)
+        if form.is_valid():
+            Q1 = form.cleaned_data['Q1']
+            Q2 = form.cleaned_data['Q2']
+            Q3 = form.cleaned_data['Q3']
+            Q4 = form.cleaned_data['Q4']
+            Q5 = form.cleaned_data['Q5']
+            Q6 = form.cleaned_data['Q6']
+            Q7 = form.cleaned_data['Q7']
+
+            # 現行診断間隔
+            current_diagnosis_interval = Q6
+            # 最適診断間隔
+            optimal_diagnosis_interval = math.sqrt((2 * Q7 * Q5) / Q3) * (Q2 / Q7)
+            
+            # 現行の単位あたりの診断費用
+            current_diagnosis_cost_per_unit = Q3 / Q6
+            # 現行の不良を作ることによる損失
+            current_defect_loss = ((Q6 + 1) / 2) * (Q2 / Q7)
+            # 現行の工程調整にかかる費用
+            current_adjustment_cost = Q4 / Q7
+            # 現行のタイムラグによる損失
+            current_lag_loss = (Q5 * Q2) / Q7
+            # 現行コスト
+            current_cost = current_diagnosis_cost_per_unit + current_defect_loss + current_adjustment_cost + current_lag_loss
+            
+            # 最適の単位あたりの診断費用
+            optimal_diagnosis_cost_per_unit = Q3 / optimal_diagnosis_interval
+            # 最適の不良を作ることによる損失
+            optimal_defect_loss = ((optimal_diagnosis_interval + 1) / 2) * (Q2 / Q7)
+            # 最適の工程調整にかかる費用
+            optimal_adjustment_cost = Q4 / Q7
+            # 最適のタイムラグによる損失
+            optimal_lag_loss = (Q5 * Q2) / Q7
+            # 最適コスト
+            optimal_cost = optimal_diagnosis_cost_per_unit + optimal_defect_loss + optimal_adjustment_cost + optimal_lag_loss
+
+            result = {
+                'current_diagnosis_interval': round(current_diagnosis_interval, 2),
+                'optimal_diagnosis_interval': round(optimal_diagnosis_interval, 2),
+                'current_cost': round(current_cost, 2),
+                'optimal_cost': round(optimal_cost, 2),
+                'current_diagnosis_cost_per_unit': round(current_diagnosis_cost_per_unit, 2),
+                'optimal_diagnosis_cost_per_unit': round(optimal_diagnosis_cost_per_unit, 2),
+                'current_defect_loss': round(current_defect_loss, 2),
+                'optimal_defect_loss': round(optimal_defect_loss, 2),
+                'current_adjustment_cost': round(current_adjustment_cost, 2),
+                'optimal_adjustment_cost': round(optimal_adjustment_cost, 2),
+                'current_lag_loss': round(current_lag_loss, 2),
+                'optimal_lag_loss': round(optimal_lag_loss, 2),
+            }
+
+    else:
+        form = DiagnosticForm()
+
+    return render(request, 'calculations/diagnostic.html', {'form': form, 'result': result})

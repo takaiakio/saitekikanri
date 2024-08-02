@@ -12,3 +12,14 @@ class CalculationForm(forms.Form):
     Q9 = forms.FloatField(label='平均して単位数として何個（枚）ごとにチェックのための計測がなされているか記入して下さい。')
     Q10 = forms.FloatField(label='平均して単位数として何個（枚）ごとに調整が入っているか記入して下さい。')
     Q11 = forms.FloatField(label='工程での調整限界を記入してください。')
+
+
+    # 新しい診断コスト計算用のフォーム
+class DiagnosticForm(forms.Form):
+    Q1 = forms.FloatField(label='単位生産量', min_value=0)
+    Q2 = forms.FloatField(label='異常時の損失額', min_value=0)
+    Q3 = forms.FloatField(label='診断コスト', min_value=0)
+    Q4 = forms.FloatField(label='工程調整損失', min_value=0)
+    Q5 = forms.FloatField(label='異常時の生産数', min_value=0)
+    Q6 = forms.FloatField(label='診断間隔', min_value=0)
+    Q7 = forms.FloatField(label='平均故障間隔', min_value=0)

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>診断コスト算出</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>診断コスト算出結果</h1>
+    <div id="chart"></div>
+    <script>
+        // Django変数をJSONとして取得
+        var result = JSON.parse('{{ result|json_script:"result" }}');
+        
+        var data = [
+            {
+                x: ['診断費用', '不良損失', '調整費用', 'タイムラグ損失'],
+                y: [result.current_diagnosis_cost_per_unit, result.current_defect_loss, result.current_adjustment_cost, result.current_lag_loss],
+                name: '現行コスト',
+                type: 'bar'
+            },
+            {
+                x: ['診断費用', '不良損失', '調整費用', 'タイムラグ損失'],
+                y: [result.optimal_diagnosis_cost_per_unit, result.optimal_defect_loss, result.optimal_adjustment_cost, result.optimal_lag_loss],
+                name: '最適コスト',
+                type: 'bar'
+            }
+        ];
+
+        Plotly.newPlot('chart', data);
+    </script>
+</body>
+</html>
+
