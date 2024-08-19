@@ -1,19 +1,12 @@
-{% extends 'base.html' %}
-
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>最適管理算出アプリ</title>
+    <title>計算アプリ</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-
-{% block content %}
 <body>
-    <h1>最適管理算出アプリ</h1>
+    <h1>計算アプリ</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -44,32 +37,32 @@
             <td>{{ result.optimal_adjustment_interval }}</td>
         </tr>
         <tr>
-            <td>計測コスト[円]</td>
+            <td>計測コスト</td>
             <td>{{ result.current_measurement_cost }}</td>
             <td>{{ result.optimal_measurement_cost }}</td>
         </tr>
         <tr>
-            <td>調整コスト[円]</td>
+            <td>調整コスト</td>
             <td>{{ result.current_adjustment_cost }}</td>
             <td>{{ result.optimal_adjustment_cost }}</td>
         </tr>
         <tr>
-            <td>調整限界内損失[円]</td>
+            <td>調整限界内損失</td>
             <td>{{ result.current_loss_within_limit }}</td>
             <td>{{ result.optimal_loss_within_limit }}</td>
         </tr>
         <tr>
-            <td>調整限界外損失[円]</td>
+            <td>調整限界外損失</td>
             <td>{{ result.current_loss_beyond_limit }}</td>
             <td>{{ result.optimal_loss_beyond_limit }}</td>
         </tr>
         <tr>
-            <td>計測誤差[円]</td>
+            <td>計測誤差</td>
             <td>{{ result.current_measurement_error }}</td>
             <td>{{ result.optimal_measurement_error }}</td>
         </tr>
         <tr>
-            <td>総損失コスト[円]</td>
+            <td>総コスト</td>
             <td>{{ result.current_total_cost }}</td>
             <td>{{ result.optimal_total_cost }}</td>
         </tr>
@@ -77,11 +70,8 @@
     {% endif %}
 
     {% if graph %}
-    <h2>損失コスト比較グラフ</h2>
+    <h2>コスト比較グラフ</h2>
     <div>{{ graph|safe }}</div>
     {% endif %}
-{% endblock %}
 </body>
 </html>
-
-

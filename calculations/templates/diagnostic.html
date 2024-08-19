@@ -1,38 +1,80 @@
-{% extends 'base.html' %}   
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>診断コスト算出</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>診断コスト算出アプリ</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <h1>診断コスト算出アプリ</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">計算</button>
+    </form>
 
-{% block content %}
-    <h1>診断コスト算出結果</h1>
-    <div id="chart"></div>
+    {% if result %}
+    <h2>計算結果</h2>
+    <table>
+        <tr>
+            <th>項目</th>
+            <th>現行値</th>
+            <th>最適値</th>
+        </tr>
+        <tr>
+            <td>診断間隔</td>
+            <td>{{ result.current_diagnosis_interval }}</td>
+            <td>{{ result.optimal_diagnosis_interval }}</td>
+        </tr>
+        <tr>
+            <td>単位あたりの診断費用</td>
+            <td>{{ result.current_diagnosis_cost_per_unit }}</td>
+            <td>{{ result.optimal_diagnosis_cost_per_unit }}</td>
+        </tr>
+        <tr>
+            <td>不良を作ることによる損失</td>
+            <td>{{ result.current_defect_loss }}</td>
+            <td>{{ result.optimal_defect_loss }}</td>
+        </tr>
+        <tr>
+            <td>工程調整にかかる費用</td>
+            <td>{{ result.current_adjustment_cost }}</td>
+            <td>{{ result.optimal_adjustment_cost }}</td>
+        </tr>
+        <tr>
+            <td>タイムラグによる損失</td>
+            <td>{{ result.current_lag_loss }}</td>
+            <td>{{ result.optimal_lag_loss }}</td>
+        </tr>
+        <tr>
+            <td>総コスト</td>
+            <td>{{ result.current_cost }}</td>
+            <td>{{ result.optimal_cost }}</td>
+        </tr>
+    </table>
+
+    <h2>コスト比較グラフ</h2>
+    <div id="cost-chart"></div>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script>
-        // Django変数をJSONとして取得
-        var result = JSON.parse('{{ result|json_script:"result" }}');
-        
         var data = [
             {
                 x: ['診断費用', '不良損失', '調整費用', 'タイムラグ損失'],
-                y: [result.current_diagnosis_cost_per_unit, result.current_defect_loss, result.current_adjustment_cost, result.current_lag_loss],
+                y: [{{ result.current_diagnosis_cost_per_unit }}, {{ result.current_defect_loss }}, {{ result.current_adjustment_cost }}, {{ result.current_lag_loss }}],
                 name: '現行コスト',
                 type: 'bar'
             },
             {
                 x: ['診断費用', '不良損失', '調整費用', 'タイムラグ損失'],
-                y: [result.optimal_diagnosis_cost_per_unit, result.optimal_defect_loss, result.optimal_adjustment_cost, result.optimal_lag_loss],
+                y: [{{ result.optimal_diagnosis_cost_per_unit }}, {{ result.optimal_defect_loss }}, {{ result.optimal_adjustment_cost }}, {{ result.optimal_lag_loss }}],
                 name: '最適コスト',
                 type: 'bar'
             }
         ];
 
-        Plotly.newPlot('chart', data);
+        var layout = {barmode: 'group'};
+        Plotly.newPlot('cost-chart', data, layout);
     </script>
-{% endblock %}
+    {% endif %}
 </body>
 </html>
-
