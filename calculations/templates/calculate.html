@@ -2,76 +2,21 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>計算アプリ</title>
+    <title>最適管理算出アプリ</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>計算アプリ</h1>
+    <h1>最適管理算出アプリ</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">計算</button>
     </form>
-    
-    {% if result %}
-    <h2>結果</h2>
-    <table border="1">
-        <tr>
-            <th></th>
-            <th>現行</th>
-            <th>最適</th>
-        </tr>
-        <tr>
-            <td>計測間隔</td>
-            <td>{{ result.current_measurement_interval }}</td>
-            <td>{{ result.optimal_measurement_interval }}</td>
-        </tr>
-        <tr>
-            <td>調整限界</td>
-            <td>{{ result.current_adjustment_limit }}</td>
-            <td>{{ result.optimal_adjustment_limit }}</td>
-        </tr>
-        <tr>
-            <td>調整間隔</td>
-            <td>{{ result.current_adjustment_interval }}</td>
-            <td>{{ result.optimal_adjustment_interval }}</td>
-        </tr>
-        <tr>
-            <td>計測コスト</td>
-            <td>{{ result.current_measurement_cost }}</td>
-            <td>{{ result.optimal_measurement_cost }}</td>
-        </tr>
-        <tr>
-            <td>調整コスト</td>
-            <td>{{ result.current_adjustment_cost }}</td>
-            <td>{{ result.optimal_adjustment_cost }}</td>
-        </tr>
-        <tr>
-            <td>調整限界内損失</td>
-            <td>{{ result.current_loss_within_limit }}</td>
-            <td>{{ result.optimal_loss_within_limit }}</td>
-        </tr>
-        <tr>
-            <td>調整限界外損失</td>
-            <td>{{ result.current_loss_beyond_limit }}</td>
-            <td>{{ result.optimal_loss_beyond_limit }}</td>
-        </tr>
-        <tr>
-            <td>計測誤差</td>
-            <td>{{ result.current_measurement_error }}</td>
-            <td>{{ result.optimal_measurement_error }}</td>
-        </tr>
-        <tr>
-            <td>総コスト</td>
-            <td>{{ result.current_total_cost }}</td>
-            <td>{{ result.optimal_total_cost }}</td>
-        </tr>
-    </table>
-    {% endif %}
 
-    {% if graph %}
-    <h2>コスト比較グラフ</h2>
-    <div>{{ graph|safe }}</div>
+    {% if 結果 %}
+        <!-- 結果の表示 -->
     {% endif %}
 </body>
 </html>
